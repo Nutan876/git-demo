@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Hello, World!</title>
+  <style>
+  #con{
+    display:flex;
+    border: 1px solid black;
+    width:fit-content;
+    margin:10px 0;
+    background-color: rgb(232, 236, 237);
+    border-radius: 5px;
+  }
+  .btn{
+    height: 40px;
+    width: 40px;
+    display:flex;
+    border: 1px solid black;
+    margin:5px;
+    border-radius:5px;
+    background-color:red;
+    font-weight: bold;
+    justify-content: center;
+    align-items: center;
+  }
+  h2{
+    margin:20px 0;
+  }
+  button{
+    cursor: pointer;
+  }
+  #image{
+    text-align: center;
+  }
+  img{
+    height: 500px;
+    border-radius: 10px;
+    border: 2px solid black;
+    box-shadow:"rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px";
+  }
+  area{
+    cursor: pointer;
+  }
+  </style>
+</head>
+<body>
+  <label>Enter Array string :</label>
+  <input type="text" id="str">
+  <button onclick="arr()">Add Array</button>
+  <h1>Binary Search 🔍</h1>
+  <input type="number" id="target">
+  <button class="start">start</button>
+  <div id="con">
+  </div>
+  <h2></h2>  
+  <div style="height: 20dvh; width: 50dvw; box-sizing: border-box;">
+    <div style="height: 100%; width: 100%;">
+      <img src="image copy.png" alt="">
+    </div>
+  </div>
+  <script>
+    let container=document.querySelector("#con");
+    function arr(){
+      container.innerHTML = null;
+      let strarr=document.querySelector("#str").value;
+      let arr = strarr.split(",").map(Number).sort((a,b)=>a-b);
+      console.log(arr);
+      for(let i of arr){
+        let box=document.createElement("div");
+        box.classList.add("btn");
+        box.innerText=i;
+        container.append(box);
+        console.log(i);
+      }
+    }
+    
+let btn = document.querySelector(".start");
+let box;
+let result = document.querySelector("h2");
+
+btn.addEventListener("click", ()=>{
+  Binary();
+} );
+
+
+
+async function Binary() {
+  box = document.querySelectorAll(".btn");
+  box.forEach((e)=>{
+        e.style.backgroundColor = "red";
+      });
+
+  let inputEl = document.querySelector("#target");
+  let value = inputEl.value.trim();
+  let n = Number(value);
+  let low=0,high=(box.length)-1;
+
+  if (value === "" || isNaN(Number(value))) {
+    result.innerText = "Please enter a number!";
+    return;
+  }
+  
+  result.innerText=`Searching...`;
+
+  while(low <= high){
+    let mid = Math.floor((low + high) / 2);
+    
+    await timer(mid);
+
+    if(Number(box[mid].innerText) == n){
+      box.forEach((e)=>{
+        e.style.backgroundColor = "yellow";
+      });
+      box[mid].style.backgroundColor = "green";
+      result.innerText=`${box[mid].innerText} Found at index ${mid+1}`;
+      return;
+    }
+    else if(n < Number(box[mid].innerText)){
+      high=mid-1;
+    }
+    else {
+      low=mid+1;
+    }
+  }
+    result.innerText=`${n} is not Found !`;
+}
+
+function timer(i) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      box[i].style.backgroundColor = "lightblue";
+      resolve();
+    }, 1000);
+  });
+}
+</script>
+</body>
+</html>
