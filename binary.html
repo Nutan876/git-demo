@@ -5,7 +5,8 @@
   <title>Hello, World!</title>
   <style>
   #con{
-    display:flex;
+    
+    display:none;
     border: 1px solid black;
     width:fit-content;
     margin:10px 0;
@@ -45,12 +46,12 @@
   </style>
 </head>
 <body>
-  <label>Enter Array string :</label>
+  <label for="str">Enter Array string :</label>
   <input type="text" id="str">
-  <button onclick="arr()">Add Array</button>
+  <button type="button" onclick="arr()">Add Array</button>
   <h1>Binary Search 🔍</h1>
   <input type="number" id="target">
-  <button class="start">start</button>
+  <button type="button" class="start">start</button>
   <div id="con">
   </div>
   <h2></h2>  
@@ -58,6 +59,7 @@
   <script>
     let container=document.querySelector("#con");
     function arr(){
+    container.style.display="flex";
       container.innerHTML = null;
       let strarr=document.querySelector("#str").value;
       let arr = strarr.split(",").map(Number).sort((a,b)=>a-b);
